@@ -47,7 +47,8 @@ app.post("/", (req, res) => {
       console.log(todoItem);
     })
     .catch((e) => {
-      res.sendStatus(404), console.log(e);
+      res.sendStatus(404);
+      console.log(e);
     }); // In case of problem we send an HTTP code
 });
 
