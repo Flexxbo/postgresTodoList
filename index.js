@@ -88,7 +88,12 @@ const express = require("express");
 const dotenv = require("dotenv");
 const app = express();
 const port = 3001;
+const dotenv = require("dotenv");
+
 require("dotenv").config();
+const bodyparser = require("body-parser");
+
+app.use(bodyparser.urlencoded());
 
 const todo_model = require("./todocomponent");
 
@@ -117,6 +122,17 @@ app.get("/", (req, res) => {
 app.post("/todo", (req, res) => {
   todo_model
     .createTodo(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.put("/todo/:id", (req, res) => {
+  todo_model
+    .editTodo(req.params.id, req.body)
     .then((response) => {
       res.status(200).send(response);
     })
