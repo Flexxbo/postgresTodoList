@@ -1,23 +1,28 @@
 // index.js
-
+/*
 const express = require("express");
 const dotenv = require("dotenv");
 const { Pool } = require("pg");
 const bodyparser = require("body-parser");
+
+const express = require("express");
+const dotenv = require("dotenv");
 const app = express();
 const port = 3001;
+const todo_model = require("./todocomponent");
 require("dotenv").config();
 
 app.use(bodyparser.urlencoded());
-
+*/
+/*
 const pool = new Pool({
   user: process.env.USER,
   host: process.env.HOST,
   database: process.env.DATABASE,
   password: process.env.PASSWORD, //how to make your password invisible, ask before pushing to github
   port: process.env.PORT,
-});
-
+});*/
+/*
 app.get("/", (req, res) => {
   pool // We're using the instance connected to the DB
     .query("SELECT * FROM todolist;")
@@ -78,7 +83,58 @@ app.delete("/:id", (req, res) => {
 });
 
 //app.get("/", (req, res) => res.send("Hello Mello Trello"));
+*/
+const express = require("express");
+const dotenv = require("dotenv");
+const app = express();
+const port = 3001;
+require("dotenv").config();
 
-app.listen(port, () =>
-  console.log(`Example app listening at http://localhost:${port}`)
-);
+const todo_model = require("./todocomponent");
+
+app.use(express.json());
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Access-Control-Allow-Headers"
+  );
+  next();
+});
+
+app.get("/", (req, res) => {
+  todo_model
+    .getTodos()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.post("/todo", (req, res) => {
+  todo_model
+    .createTodo(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.delete("/todo/:id", (req, res) => {
+  todo_model
+    .deleteTodo(req.params.id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`);
+});
