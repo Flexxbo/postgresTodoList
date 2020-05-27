@@ -94,12 +94,12 @@ const createTodo = (body) => {
         resolve(
           `A new ToDo has been  added: ${JSON.stringify(results.rows[0])}`
         );
-        //console.log(typeof body);
+        /*console.log(typeof body);
         console.log(id);
         console.log(title);
         console.log(results);
 
-        console.log(results.rows[0]);
+        console.log(results.rows[0]);*/
       }
     );
   });
