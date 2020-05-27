@@ -159,9 +159,10 @@ const deleteMerchant = () => {
   });
 };
 */
-const deleteTodo = () => {
+const deleteTodo = (todoItem) => {
   return new Promise(function (resolve, reject) {
-    const id = parseInt(request.params.id);
+    const id = parseInt(todoItem);
+    //console.log(id);
     pool.query("DELETE FROM todolist WHERE id = $1", [id], (error, results) => {
       if (error) {
         reject(error);
@@ -170,6 +171,46 @@ const deleteTodo = () => {
     });
   });
 };
+
+const deleteAll = () => {
+  return new Promise(function (resolve, reject) {
+    //const id = parseInt(todoItem);
+    //console.log(id);
+    pool.query("DELETE FROM todolist *", (error, results) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(`Deleted All`);
+    });
+  });
+};
+/*
+const deleteAll = () => {
+  return new Promise(function (resolve, reject) {
+    //console.log(id);
+    pool.query("DELETE FROM todolist WHERE id = 113", (error, results) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(`Deleted all items from list`);
+    });
+  });
+};
+*/
+/*
+const deleteTodo = () => {
+  return new Promise(function (resolve, reject) {
+    const id = parseInt(request.params.id);
+    console.log(id);
+    pool.query("DELETE FROM todolist WHERE id = $1", [id], (error, results) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(`Todo deleted with ID: ${id}`);
+    });
+  });
+};
+*/
 /*
 app.delete("/:id", (req, res) => {
   const { id } = req.params; // We retrieve the id from the URL
@@ -219,6 +260,7 @@ module.exports = {
   getTodos,
   createTodo,
   deleteTodo,
+  deleteAll,
 };
 
 /* ===Better Comments=== */
