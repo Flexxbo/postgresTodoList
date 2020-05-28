@@ -16,7 +16,7 @@ app.use(bodyparser.urlencoded());
 const pool = new Pool({
   user: "eupyuwdt",
   host: process.env.HOST,
-  database: "eupyuwdt",
+  database: process.env.DATABASE,
   password: "2mAxCy1uPov1X7TFRtZpaceH1K9f711q",
   port: 5432,
 });
