@@ -27,6 +27,7 @@ const getTodos = async () => {
     const query = await pool.query("SELECT * FROM todolist ORDER BY id ASC");
     return query.rows;
   } catch (e) {
+    console.log(e);
     return [];
   }
 };
