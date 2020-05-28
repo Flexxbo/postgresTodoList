@@ -96,7 +96,7 @@ app.use(bodyparser.urlencoded());
 const todo_model = require("./todocomponent");
 
 app.use(express.json());
-import cors from ("cors")
+var cors = require("cors");
 app.use(cors());
 
 /*
