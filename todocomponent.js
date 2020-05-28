@@ -13,13 +13,21 @@ const app = express();
 const dotenv = require("dotenv");
 const { Pool } = require("pg");
 app.use(bodyparser.urlencoded());
-
+/*
 const pool = new Pool({
   user: process.env.USER,
   host: process.env.HOST,
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 3001,
+});*/
+
+const pool = new Pool({
+  user: USER,
+  host: HOST,
+  database: DATABASE,
+  password: PASSWORD,
+  port: PORT || 3001,
 });
 
 const getTodos = () => {
