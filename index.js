@@ -89,7 +89,6 @@ const express = require("express");
 const app = express();
 //const dotenv = require("dotenv");
 
-require("dotenv").config();
 const bodyparser = require("body-parser");
 
 app.use(bodyparser.urlencoded());
@@ -98,7 +97,11 @@ const todo_model = require("./todocomponent");
 
 app.use(express.json());
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  //res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://todolistreactj.herokuapp.com/"
+  );
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
   res.setHeader(
     "Access-Control-Allow-Headers",

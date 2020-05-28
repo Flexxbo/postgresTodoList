@@ -10,7 +10,6 @@ const express = require("express");
 const app = express();
 
 /*===Start code here===*/
-const dotenv = require("dotenv");
 const { Pool } = require("pg");
 app.use(bodyparser.urlencoded());
 
