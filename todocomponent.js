@@ -15,7 +15,7 @@ const { Pool } = require("pg");
 app.use(bodyparser.urlencoded());
 
 const pool = new Pool({
-  user: "eupyuwdt",
+  user: 'eupyuwdt',
   host: process.env.HOST,
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
