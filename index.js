@@ -163,5 +163,5 @@ app.delete("/todo", (req, res) => {
 });
 
 app.listen(process.env.PORT || 80, () => {
-  console.log(`App running on port ${port}.`);
+  console.log(`App running on port ${process.env.PORT || 80}.`);
 });
