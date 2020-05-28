@@ -22,45 +22,62 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-const getTodos = async () => {
-  try {
-    const query = await pool.query("SELECT * FROM todolist ORDER BY id ASC");
-    return query.rows;
-  } catch (e) {
-    return [];
-  }
+const getTodos = () => {
+  return new Promise(function (resolve, reject) {
+    pool.query("SELECT * FROM todolist ORDER BY id ASC", (error, results) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results.rows);
+    });
+  });
 };
 
-const createTodo = async (body) => {
-  const { id, title } = body;
+const createTodo = (body) => {
+  return new Promise(function (resolve, reject) {
+    const { id, title } = body;
 
-  try {
-    const query = await pool.query(
-      "INSERT INTO todolist (todo, uuid) VALUES ($1, $2) RETURNING *",
-      [title, id]
+    pool.query(
+      "INSERT INTO todolist ( todo, uuid) VALUES ($1, $2) RETURNING *",
+      [title, id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(
+          `A new ToDo has been  added: ${JSON.stringify(results.rows[0])}`
+        );
+      }
     );
-    return `A ToDo has been created: ${JSON.stringify(results.rows[0])}`;
-  } catch (e) {
-    return "Error";
-  }
+  });
 };
 
 /*
  * Need to add later
  */
 
-const editTodo = async (itemid, body) => {
-  const id = parseInt(itemid);
-  const title = body;
-  try {
-    const query = await pool.query(
+const editTodo = (itemid, body) => {
+  return new Promise(function (resolve, reject) {
+    const id = parseInt(itemid);
+    const title = body;
+
+    pool.query(
       "UPDATE todolist SET todo=$1 WHERE id=$2 RETURNING *",
-      [title, id]
+      [title, id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(`A ToDo has been updated: ${JSON.stringify(results.rows[0])}`);
+        console.log(typeof body);
+        console.log(id);
+        console.log(title);
+        console.log(results);
+
+        console.log(results.rows[0]);
+      }
     );
-    return `A ToDo has been created: ${JSON.stringify(query.rows[0])}`;
-  } catch (e) {
-    return "Error";
-  }
+  });
 };
 
 /*
@@ -94,24 +111,30 @@ const deleteMerchant = () => {
   });
 };
 */
-const deleteTodo = async (todoItem) => {
-  const id = parseInt(todoItem);
-
-  try {
-    const query = await pool.query("DELETE FROM todolist WHERE id = $1", [id]);
-    return `Todo deleted with ID: ${id}`;
-  } catch (e) {
-    return "Error";
-  }
+const deleteTodo = (todoItem) => {
+  return new Promise(function (resolve, reject) {
+    const id = parseInt(todoItem);
+    //console.log(id);
+    pool.query("DELETE FROM todolist WHERE id = $1", [id], (error, results) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(`Todo deleted with ID: ${id}`);
+    });
+  });
 };
 
-const deleteAll = async () => {
-  try {
-    const query = await pool.query("DELETE FROM todolist *");
-    return `Deleted All`;
-  } catch (e) {
-    return "Error";
-  }
+const deleteAll = () => {
+  return new Promise(function (resolve, reject) {
+    //const id = parseInt(todoItem);
+    //console.log(id);
+    pool.query("DELETE FROM todolist *", (error, results) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(`Deleted All`);
+    });
+  });
 };
 /*
 const deleteAll = () => {
