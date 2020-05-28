@@ -16,9 +16,9 @@ app.use(bodyparser.urlencoded());
 
 const pool = new Pool({
   user: "eupyuwdt",
-  host: dumbo.db.elephantsql.com,
-  database: eupyuwdt,
-  password: 2mAxCy1uPov1X7TFRtZpaceH1K9f711q,
+  host: "dumbo.db.elephantsql.com",
+  database: "eupyuwdt",
+  password: "2mAxCy1uPov1X7TFRtZpaceH1K9f711q",
   port: 5432,
 });
 
