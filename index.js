@@ -87,7 +87,6 @@ app.delete("/:id", (req, res) => {
 const express = require("express");
 //const dotenv = require("dotenv");
 const app = express();
-const port = 3001;
 //const dotenv = require("dotenv");
 
 require("dotenv").config();
@@ -163,6 +162,6 @@ app.delete("/todo", (req, res) => {
     });
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 80, () => {
   console.log(`App running on port ${port}.`);
 });
