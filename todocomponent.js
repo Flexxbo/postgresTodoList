@@ -16,12 +16,21 @@ app.use(bodyparser.urlencoded());
 
 const pool = new Pool({
   user: "eupyuwdt",
+  host: dumbo.db.elephantsql.com,
+  database: eupyuwdt,
+  password: 2mAxCy1uPov1X7TFRtZpaceH1K9f711q,
+  port: 5432,
+});
+
+/*
+const pool = new Pool({
+  user: "eupyuwdt",
   host: process.env.HOST,
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
   port: process.env.DB_PORT,
 });
-
+*/
 const getTodos = async () => {
   try {
     const query = await pool.query("SELECT * FROM todolist ORDER BY id ASC");
