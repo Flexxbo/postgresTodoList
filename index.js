@@ -96,6 +96,10 @@ app.use(bodyparser.urlencoded());
 const todo_model = require("./todocomponent");
 
 app.use(express.json());
+import cors from ("cors")
+app.use(cors());
+
+/*
 app.use(function (req, res, next) {
   //res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(
@@ -109,7 +113,7 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
+*/
 app.get("/", (req, res) => {
   todo_model
     .getTodos()
