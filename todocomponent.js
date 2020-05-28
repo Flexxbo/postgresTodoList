@@ -13,21 +13,13 @@ const app = express();
 const dotenv = require("dotenv");
 const { Pool } = require("pg");
 app.use(bodyparser.urlencoded());
-/*
+
 const pool = new Pool({
   user: process.env.USER,
   host: process.env.HOST,
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
-  port: process.env.PORT || 3001,
-});*/
-
-const pool = new Pool({
-  user: USER,
-  host: HOST,
-  database: DATABASE,
-  password: PASSWORD,
-  port: PORT || 3001,
+  port: process.env.PORT,
 });
 
 const getTodos = () => {
@@ -43,7 +35,6 @@ const getTodos = () => {
 
 const createTodo = (body) => {
   return new Promise(function (resolve, reject) {
-    //const id = body.id;
     const { id, title } = body;
 
     pool.query(
@@ -56,12 +47,6 @@ const createTodo = (body) => {
         resolve(
           `A new ToDo has been  added: ${JSON.stringify(results.rows[0])}`
         );
-        /*console.log(typeof body);
-        console.log(id);
-        console.log(title);
-        console.log(results);
-
-        console.log(results.rows[0]);*/
       }
     );
   });
